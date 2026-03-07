@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -28,7 +32,7 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          files: test-output/testng-results.xml
+          files: "test-output/junitreports/*.xml"
 
       - name: Upload Surefire Reports
         if: always()
