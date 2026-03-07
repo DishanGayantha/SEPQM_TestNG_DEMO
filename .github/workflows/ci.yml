@@ -48,7 +48,7 @@ jobs:
 
       - name: Send Email Notification if Tests Fail
         if: failure()
-        uses: dawidd6/action-send-mail@<REF>
+        uses: dawidd6/action-send-mail@v11
         with:
           server_address: smtp.gmail.com
           server_port: 465
