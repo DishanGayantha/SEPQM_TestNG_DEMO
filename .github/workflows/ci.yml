@@ -27,7 +27,7 @@ jobs:
           cache: maven
 
       - name: Build and Run tests
-        run: mvn -B testt
+        run: mvn -B test
 
       # - name: Publish Test Results to Dashboard
       #   uses: EnricoMi/publish-unit-test-result-action@v2
