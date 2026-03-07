@@ -22,13 +22,21 @@ jobs:
           cache: maven
 
       - name: Build and Run tests
-        run: mvn -B tes
+        run: mvn -B test
 
-      - name: Publish Test Results to Dashboard
-        uses: EnricoMi/publish-unit-test-result-action@v2
+      # - name: Publish Test Results to Dashboard
+      #   uses: EnricoMi/publish-unit-test-result-action@v2
+      #   if: always()
+      #   with:
+      #     files: test-output/junitreports/**/*.xml
+
+      - name: Publish TestNG results to GitHub Actions dashboard
+        uses: dorny/test-reporter@v1
         if: always()
         with:
-          files: test-output/testng-results.xml
+          name: TestNG Tests
+          path: test-output/*.xml
+          reporter: junit
 
       - name: Upload Surefire Reports
         if: always()
@@ -57,7 +65,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "CI Pipeline Failed - TestNG Tests"
           to: nishanthiganewatte@gmail.com
-          from: GitHub CI
+          from: gayantha8631@gmail.com
           body: |
             TestNG tests have failed in the CI pipeline.
 
