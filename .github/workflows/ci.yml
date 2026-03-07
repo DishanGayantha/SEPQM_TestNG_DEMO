@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: Build and Run tests
-        run: mvn -B test
+        run: mvn -B clean test
 
       # - name: Publish Test Results to Dashboard
       #   uses: EnricoMi/publish-unit-test-result-action@v2
@@ -52,7 +52,9 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: surefire-reports
-          path: test-output/junitreports
+          path: |
+            target/surefire-reports
+            test-output/junitreports
           if-no-files-found: ignore
 
       - name: Upload TestNG Reports
