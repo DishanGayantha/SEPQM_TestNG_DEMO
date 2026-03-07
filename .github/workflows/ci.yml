@@ -28,7 +28,7 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          files: ../test-output/testng-results.xml
+          files: test-output/testng-results.xml
 
       - name: Upload Surefire Reports
         if: always()
@@ -48,7 +48,7 @@ jobs:
 
       - name: Send Email Notification if Tests Fail
         if: failure()
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@<REF>
         with:
           server_address: smtp.gmail.com
           server_port: 465
