@@ -40,7 +40,7 @@ jobs:
         if: always()
         with:
           name: TestNG Tests
-          path: test-output/junitreports/**/*.xml
+          path: test-output/junitreports/*.xml
           reporter: java-junit
 
       - name: Upload Surefire Reports
