@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: dev
     permissions:
       contents: read
       checks: write
@@ -39,15 +40,15 @@ jobs:
         if: always()
         with:
           name: TestNG Tests
-          path: test-output/*.xml
-          reporter: junit
+          path: test-output/junitreports/**/*.xml
+          reporter: java-junit
 
       - name: Upload Surefire Reports
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: surefire-reports
-          path: target/surefire-reports
+          path: test-output/junitreports
           if-no-files-found: ignore
 
       - name: Upload TestNG Reports
@@ -69,7 +70,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "CI Pipeline Failed - TestNG Tests"
           to: nishanthiganewatte@gmail.com
-          from: gayantha8631@gmail.com
+          from: GitHub Actions <${{ secrets.EMAIL_USERNAME }}>
           body: |
             TestNG tests have failed in the CI pipeline.
 
