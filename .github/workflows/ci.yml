@@ -12,6 +12,7 @@ jobs:
     environment: dev
     permissions:
       contents: read
+      actions: read
       checks: write
       pull-requests: write
 
@@ -36,12 +37,15 @@ jobs:
       #     files: test-output/junitreports/**/*.xml
 
       - name: Publish TestNG results to GitHub Actions dashboard
-        uses: dorny/test-reporter@v1
-        if: always()
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}
         with:
           name: TestNG Tests
-          path: test-output/junitreports/*.xml
+          path: test-output/junitreports/**/*.xml
           reporter: java-junit
+          use-actions-summary: 'true'
+          report-title: 'TestNG Tests'
+          fail-on-empty: 'false'
 
       - name: Upload Surefire Reports
         if: always()
